@@ -1,0 +1,21 @@
+{{- if .Values.nginx.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.nginx.name }}-service
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: nginx
+    release: {{ .Release.Name }}
+spec:
+  type: {{ .Values.nginx.service.type }}
+  selector:
+    app: nginx
+    release: {{ .Release.Name }}
+  ports:
+  - port: {{ .Values.nginx.service.port }}
+    targetPort: {{ .Values.nginx.service.port }}
+    {{- if eq .Values.nginx.service.type "NodePort" }}
+    nodePort: {{ .Values.nginx.service.nodePort }}
+    {{- end }}
+{{- end }}

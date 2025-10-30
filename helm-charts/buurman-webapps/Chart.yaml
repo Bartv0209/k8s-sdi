@@ -1,0 +1,14 @@
+apiVersion: v2
+name: buurman-webapps
+description: Helm chart voor Buurman en Buurman IT webapplicaties
+type: application
+version: 1.0.0
+appVersion: "1.0"
+maintainers:
+  - name: Bart van Dijk
+    email: bartv0209@gmail.com
+keywords:
+  - nginx
+  - apache
+  - webapps
+  - kubernetes

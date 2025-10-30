@@ -1,0 +1,76 @@
+# Default values for buurman-webapps
+# Jinja2 templating support
+
+environment: production
+namespace: webapps-helm
+
+# NGINX Reverse Proxy
+nginx:
+  enabled: true
+  name: nginx-reverse-proxy
+  replicaCount: 3
+  image:
+    repository: nginx
+    tag: "1.25-alpine"
+    pullPolicy: IfNotPresent
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30080
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "100m"
+    limits:
+      memory: "128Mi"
+      cpu: "200m"
+
+# Apache Application 1
+apacheApp1:
+  enabled: true
+  name: apache-app1
+  replicaCount: 2
+  image:
+    repository: httpd
+    tag: "2.4-alpine"
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "100m"
+    limits:
+      memory: "128Mi"
+      cpu: "200m"
+  content:
+    title: "Apache App 1 - Buurman en Buurman IT"
+    heading: "Apache Application 1"
+    description: "First Apache webserver behind NGINX reverse proxy"
+    backgroundColor: "#f0f0f0"
+
+# Apache Application 2
+apacheApp2:
+  enabled: true
+  name: apache-app2
+  replicaCount: 2
+  image:
+    repository: httpd
+    tag: "2.4-alpine"
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "100m"
+    limits:
+      memory: "128Mi"
+      cpu: "200m"
+  content:
+    title: "Apache App 2 - Buurman en Buurman IT"
+    heading: "Apache Application 2"
+    description: "Second Apache webserver behind NGINX reverse proxy"
+    backgroundColor: "#ecf0f1"
