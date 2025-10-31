@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: buurman-webapps
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Bartv0209/k8s-sdi.git
+    targetRevision: HEAD
+    path: helm-charts/buurman-webapps
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: webapps-argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
