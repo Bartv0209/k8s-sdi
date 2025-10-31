@@ -5,15 +5,17 @@ metadata:
   namespace: webapps-helm
 spec:
   scaleTargetRef:
+    # Target de Helm deployment van NGINX
     apiVersion: apps/v1
     kind: Deployment
     name: nginx-reverse-proxy
-  minReplicaCount: 1
+  minReplicaCount: 1 
   maxReplicaCount: 10
   pollingInterval: 30
-  cooldownPeriod: 300
   triggers:
   - type: cpu
-    metricType: Utilization
     metadata:
+      # Type moet 'Utilization' zijn (gemiddeld percentage)
+      type: Utilization
+      # De waarde (als string)
       value: "70"
